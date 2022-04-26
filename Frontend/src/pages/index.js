@@ -7,6 +7,7 @@ import TestPage from '../components/TestSection';
 import { homeObjOne, homeObjTwo, homeObjThree, homeObjFour, homeObjFive } from '../components/InfoSection/Data';
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
+import SearchPage from '../components/SearchSection';
 
 const Home = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -21,7 +22,7 @@ const Home = () => {
          <Navbar toggle={toggle}/>
          <HeroSection />
          <TestPage/> 
-         <InfoSection {...homeObjTwo}/>
+         <SearchPage/>
          <InfoSection {...homeObjThree}/>
          <InfoSection {...homeObjFour}/>
          <Events />

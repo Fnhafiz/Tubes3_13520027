@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const TestContainer = styled.div`
-background: #0c0c0c;
+export const SearchContainer = styled.div`
+background: #fff;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -21,7 +21,7 @@ z-index: 1;
 }
 `;
 
-export const TestContent = styled.div`
+export const SearchContent = styled.div`
     z-index: 3;
     max-width: 1200px;
     position: absolute;
@@ -31,14 +31,14 @@ export const TestContent = styled.div`
     align-items: center;
 `
 
-export const TestLabel = styled.label`
-    color: #fff;
+export const SearchLabel = styled.label`
+    color: #0c0c0c;
     font-size: 16px;
     text-align: center; 
 `
 
-export const TestH1 = styled.h1`
-    color: #fff;
+export const SearchH1 = styled.h1`
+    color: #0c0c0c;
     font-size: 48px;
     text-align: center;
     margin-bottom: 48px;
@@ -53,25 +53,16 @@ export const TestH1 = styled.h1`
     }
 `
 
-export const TestInput = styled.input`
+export const SearchInput = styled.input`
     width: 100%;
     padding: 6px 10px;
     margin: 10px 0;
-    border: 1px solid #fff;
+    border: 1px solid #0c0c0c;
     box-sizing: border-box;
     display: block;
 `
 
-export const TestTextArea = styled.textarea`
-    width: 100%;
-    padding: 6px 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    display: block;
-`
-
-export const TestButton = styled.button`
+export const SearchButton = styled.button`
     background: #89cff0;
     color: #0c0c0c;
     border: 0;
@@ -81,7 +72,7 @@ export const TestButton = styled.button`
     cursor: pointer;
 `
 
-export const TestForm = styled.form`
+export const SearchForm = styled.form`
     max-width: 400px;
     margin: 0 auto;
 `

@@ -5,7 +5,7 @@ export const homeObjOne = {
 };
 
 export const homeObjTwo = {
-    id: 'search',
+    id: 'search2',
     lightBg: true,
     lightText: false,
     lightTextDesc: false,

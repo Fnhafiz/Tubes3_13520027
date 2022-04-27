@@ -22,7 +22,7 @@ export const homeObjTwo = {
 };
 
 export const homeObjThree = {
-    id: 'upload',
+    id: 'upload2',
     lightBg: false,
     lightText: true,
     lightTextDesc: true,

@@ -8,6 +8,7 @@ import { homeObjOne, homeObjTwo, homeObjThree, homeObjFour, homeObjFive } from '
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import SearchPage from '../components/SearchSection';
+import UploadPage from '../components/UploadSection';
 
 const Home = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -23,7 +24,7 @@ const Home = () => {
          <HeroSection />
          <TestPage/> 
          <SearchPage/>
-         <InfoSection {...homeObjThree}/>
+         <UploadPage/>
          <InfoSection {...homeObjFour}/>
          <Events />
 

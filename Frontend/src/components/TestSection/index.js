@@ -48,9 +48,9 @@ const TestPage = () => {
                             onChange={handleFileChange}
                         />
                         <TestButton>Submit</TestButton>
-                        {/* <p>{title}</p>
+                        <p>{title}</p>
                         <p>{body}</p>
-                        <p>{text}</p> */}
+                        <p>{text}</p>
                     </TestForm>
                 </TestContent>
             </TestContainer>

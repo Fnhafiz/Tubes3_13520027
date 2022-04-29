@@ -1,4 +1,4 @@
-function bmMatching(pattern, text){
+module.exports = function(pattern, text){
 	var n = text.length;
 	var m = pattern.length;
 	var i = m - 1;

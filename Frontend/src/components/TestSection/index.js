@@ -1,5 +1,6 @@
 import React, { useState, Component} from 'react'
 import { TestLabel, TestH1, TestInput, TestTextArea, TestButton, TestForm, TestContainer, TestContent} from './TestElements'
+import Axios from 'axios'
 
 const TestPage = () => {
     
@@ -7,6 +8,17 @@ const TestPage = () => {
     const [body, setBody] = useState('');
     const [file, setFile] = useState(null);
     const [text, setText] = useState('');
+    const [message, setMessage] = useState('');
+
+    const SubmitUpload = () => {
+        Axios.post('http://localhost:3001/api/test', {
+            title: title,  
+            body: body,
+            text: text,
+        }).then((response)=>{
+            setMessage(response.data)
+        })
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -51,10 +63,8 @@ const TestPage = () => {
                             value={file}
                             onChange={handleFileChange}
                         />
-                        <TestButton>Submit</TestButton>
-                        <p>{title}</p>
-                        <p>{body}</p>
-                        <p>{text}</p>
+                        <TestButton onClick={SubmitUpload}>Submit</TestButton>
+                        <TestLabel><br/><br/>{message}</TestLabel>
                     </TestForm>
                 </TestContent>
             </TestContainer>

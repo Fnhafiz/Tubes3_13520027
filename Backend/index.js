@@ -5,6 +5,8 @@ const app = express();
 const mysql = require('mysql');
 const funcRegex = require('./regex')
 const funcSearchRegex = require('./searchRegex')
+const bmMatching = require('./bmmatching')
+const kmpMatching = require('./kmpMatching')
 
 const db = mysql.createPool({
     host: "localhost",
@@ -35,22 +37,53 @@ app.get('/api/getUpload', (req,res)=>{
     }
 })
 
-// app.post('/api/test', (req,res)=>{
-//     const title = req.body.title
-//     const body = req.body.body
-//     const text = req.body.text
+app.post('/api/test', (req,res)=>{
 
-//     if (funcRegex(text) == false){
-//         res.send("Upload Failed. DNA Sequence can only filled by A G T C")
-//         console.log('fail');
-//     } else if (funcRegex(text) == true){
-//         const sqlInsert = "SELECT dna_penyusun;"
-//         res.send("Upload new disease succesful")
-//         db.query(sqlInsert, [titleDis, textDis], (err, result) =>{
-//             console.log(result);
-//         });
-//     }
-// })
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    const title = req.body.title
+    const body = req.body.body
+    const text = req.body.text
+
+    if (funcRegex(text) == false){
+        res.send("Upload Failed. DNA Sequence can only filled by A G T C")
+        console.log('fail');
+    } else if (funcRegex(text) == true){
+        const sqlSelect2 = "SELECT * FROM jenis_penyakit WHERE nama_penyakit = ?;"
+        // res.send("Upload new disease succesful")
+        db.query(sqlSelect2, [body], (err, result) =>{
+            if (err){
+                res.send({err: err})
+            } else {
+                if (result.length>0){
+                    // console.log(result)
+                    const data = result[0].dna_penyusun;
+                    if (kmpMatching(data, text) == -1){
+                        const sqlInsert2 = "INSERT INTO hasil_prediksi (tanggal_prediksi, nama_pasien, penyakit_prediksi, status_prediksi, tingkat_kemiripan) VALUES (?,?,?,?,?);"
+                        db.query(sqlInsert2, [date, title, body, "No", 25], (err, result) =>{
+                            console.log(result);
+                        });
+                        res.send("Test Success. " + title + " doesn't has " + body);
+                    } else if (kmpMatching(data, text) != -1){
+                        const sqlInsert2 = "INSERT INTO hasil_prediksi (tanggal_prediksi, nama_pasien, penyakit_prediksi, status_prediksi, tingkat_kemiripan) VALUES (?,?,?,?,?);"
+                        db.query(sqlInsert2, [date, title, body, "Yes", 100], (err, result) =>{
+                            console.log(result);
+                        });
+                        res.send("Test Success. " + title + " has " + body);
+                    }
+
+                    console.log(data);
+                } else {
+                    res.send("There is no disease found")
+                    console.log(result)
+                    // res.send(result);
+
+                }
+            }
+        });
+    }
+})
 
 app.post('/api/search', (req,res)=>{
 
@@ -66,6 +99,9 @@ app.post('/api/search', (req,res)=>{
             } else {
                 if (result.length > 0){
                     res.send(result);
+                    console.log(result);
+                    const data = result[0].nama_pasien;
+                    console.log(data);
                 } else {
                     res.send({message: "There is no data match"})
                 }

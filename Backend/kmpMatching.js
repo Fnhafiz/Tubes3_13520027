@@ -21,7 +21,7 @@ function computeFail(pattern) {
     return fail;
 }
 
-function kmpMatch(text, pattern){
+module.exports = function(pattern, text){
     var n = text.length;
     var m = pattern.length;
 

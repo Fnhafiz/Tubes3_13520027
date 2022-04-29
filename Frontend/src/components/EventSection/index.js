@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon1 from '../../images/photo1.jpg'
-import Icon2 from '../../images/logo.svg'
-import Icon3 from '../../images/logo.svg'
+import Icon2 from '../../images/photo2.jpg'
+import Icon3 from '../../images/photo3.jpg'
 import { EventContainer, EventsH1, EventsH2, EventsWrapper, EventsCard, EventsIcon, EventsP } from './EventElements';
 
 const Events = () => {

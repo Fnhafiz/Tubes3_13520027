@@ -7,6 +7,7 @@ const funcRegex = require('./regex')
 const funcSearchRegex = require('./searchRegex')
 const bmMatching = require('./bmmatching')
 const kmpMatching = require('./kmpMatching')
+const funcLCS = require('./lcs')
 
 const db = mysql.createPool({
     host: "localhost",
@@ -59,18 +60,26 @@ app.post('/api/test', (req,res)=>{
                 if (result.length>0){
                     // console.log(result)
                     const data = result[0].dna_penyusun;
+                    const status = funcLCS(data, text, data.length, text.length);
                     if (kmpMatching(data, text) == -1){
                         const sqlInsert2 = "INSERT INTO hasil_prediksi (tanggal_prediksi, nama_pasien, penyakit_prediksi, status_prediksi, tingkat_kemiripan) VALUES (?,?,?,?,?);"
-                        db.query(sqlInsert2, [date, title, body, "No", 25], (err, result) =>{
-                            console.log(result);
-                        });
-                        res.send("Test Success. " + title + " doesn't has " + body);
+                        if (status/data.length*100 >= 80){
+                            db.query(sqlInsert2, [date, title, body, "Yes", status/data.length*100], (err, result) =>{
+                                console.log(result);
+                            });
+                            res.send(date + " - " + title + " - " + body + " - " + Math.round(status/data.length*100) + "% - Yes");
+                        } else if (status/data.length*100 < 80){
+                            db.query(sqlInsert2, [date, title, body, "No", status/data.length*100], (err, result) =>{
+                                console.log(result);
+                            });
+                            res.send(date + " - " + title + " - " + body + " - " + status/data.length*100 + "% - No");
+                        }
                     } else if (kmpMatching(data, text) != -1){
                         const sqlInsert2 = "INSERT INTO hasil_prediksi (tanggal_prediksi, nama_pasien, penyakit_prediksi, status_prediksi, tingkat_kemiripan) VALUES (?,?,?,?,?);"
                         db.query(sqlInsert2, [date, title, body, "Yes", 100], (err, result) =>{
                             console.log(result);
                         });
-                        res.send("Test Success. " + title + " has " + body);
+                        res.send(date + " - " + title + " - " + body + " - " + "100% - Yes");
                     }
 
                     console.log(data);

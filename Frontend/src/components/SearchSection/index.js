@@ -53,7 +53,7 @@ const SearchPage = () => {
                         <p>{text}</p> */}
                         <p><br/>{message}</p>
                         {list.map((val)=>{
-                            return <p>{val.tanggal_prediksi} - {val.nama_pasien} - {val.penyakit_prediksi} - {val.status_prediksi}<br/></p> 
+                            return <p>{val.tanggal_prediksi} - {val.nama_pasien} - {val.penyakit_prediksi} - {val.tingkat_kemiripan}% - {val.status_prediksi}<br/></p> 
                         })}
                     </SearchForm>
                 </SearchContent>

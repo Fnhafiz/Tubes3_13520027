@@ -23,7 +23,7 @@ z-index: 1;
 
 export const SearchContent = styled.div`
     z-index: 3;
-    max-width: 1200px;
+    max-width: 1500px;
     position: absolute;
     padding: 8px 24px;
     //display: flex;

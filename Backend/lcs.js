@@ -1,4 +1,4 @@
-function lcs(pattern, text, m, n) {
+module.exports = function lcs(pattern, text, m, n) {
     if (m == 0 || n == 0){
         return 0;
     }
@@ -18,5 +18,5 @@ var pattern = "AGGTT";
 var text = "AGGCCCCTT";
 var m = pattern.length;
 var n = text.length;
-console.log("Length of LCS is" + " " + lcs( pattern, text, m, n));
+// console.log("Length of LCS is" + " " + lcs( pattern, text, m, n));
  

@@ -1,19 +1,52 @@
-import React, { useState, Component} from 'react'
+import React, { useState, useEffect} from 'react'
 import { UploadLabel, UploadH1, UploadInput, UploadButton, UploadForm, UploadContainer, UploadContent} from './UploadElements'
+import Axios from 'axios'
 
 const UploadPage = () => {
     
-    const [title, setTitle] = useState('');
-    const [file, setFile] = useState(null);
-    const [text, setText] = useState('');
+    const [titleDis, setTitleDis] = useState('');
+    const [fileDis, setFileDis] = useState(null);
+    const [textDis, setTextDis] = useState('');
+    const [isExist, setIsExist] = useState('');
+    const [message, setMessage] = useState('');
+
+    // useEffect(()=>{
+    //     Axios.get('http://localhost:3001/api/getUpload').then((response)=>setMessage(response.data))
+    // })
+
+    const SubmitUpload = () => {
+        Axios.post('http://localhost:3001/api/upload', {
+            titleDis: titleDis,  
+            textDis: textDis,
+        }).then((response)=>{
+            setMessage(response.data)
+        })
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+    };
 
     const handleFileChange = (e) => {
         const newFile = e.target.files[0];
-        setFile(e.target.value);
+        setFileDis(e.target.value);
         const reader = new FileReader();
         reader.readAsText(newFile);
         reader.onload = () => {
-            setText(reader.result);
+            setTextDis(reader.result);
+
+            console.log("Halo")
+            setIsExist("yes");
+            
+            // if (funcRegex(reader.result) == true){
+            //     setTextDis(reader.result);
+            //     setIsExist("true");
+            // } else if (funcRegex(reader.result) == false){
+            //     console.log("DNA Sequence can only filled by A G C T")
+            //     setTextDis(reader.result)
+            //     setIsExist("false");
+            // }
+
         }
         reader.onerror = () => {
             console.log('file error', reader.error)
@@ -25,23 +58,24 @@ const UploadPage = () => {
             <UploadContainer>
                 <UploadContent>
                     <UploadH1>Add New Disease</UploadH1>
-                    <UploadForm>
+                    <UploadForm onSubmit={onSubmit}>
                         <UploadLabel>New Disease</UploadLabel>
                         <UploadInput 
                             type="text" 
                             required 
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={titleDis}
+                            onChange={(e) => setTitleDis(e.target.value)}
                         />
                         <UploadLabel>DNA Sequence</UploadLabel>
                         <UploadInput 
                             type="file" 
                             required 
-                            value={file}
+                            value={fileDis}
                             onChange={handleFileChange}
                         />
-                        <UploadButton>Submit</UploadButton>
-                        {/* <p>{text}</p> */}
+                        <UploadButton onClick={SubmitUpload}>Submit</UploadButton>
+                        <UploadLabel> </UploadLabel>
+                        <UploadLabel><br/><br/>{message}</UploadLabel>
                     </UploadForm>
                 </UploadContent>
             </UploadContainer>

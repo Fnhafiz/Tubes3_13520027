@@ -8,6 +8,10 @@ const TestPage = () => {
     const [file, setFile] = useState(null);
     const [text, setText] = useState('');
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+    };
+
     const handleFileChange = (e) => {
         const newFile = e.target.files[0];
         setFile(e.target.value);
@@ -26,7 +30,7 @@ const TestPage = () => {
             <TestContainer>
                 <TestContent>
                     <TestH1>DNA Testing</TestH1>
-                    <TestForm>
+                    <TestForm onSubmit={onSubmit}>
                         <TestLabel>Username</TestLabel>
                         <TestInput 
                             type="text" 

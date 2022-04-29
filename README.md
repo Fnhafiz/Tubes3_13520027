@@ -16,7 +16,8 @@ Pastikan telah terinstal dependencies/packages sebagai berikut :
 3. mysql
 4. nodemon
 5. cors
-6. axios
+6. axios    
+
 Jika belum dapat melakukan install dengan cara sebagai berikut pada terminal anda :  
 npm install react-router-dom express mysql nodemon cors axios
 
